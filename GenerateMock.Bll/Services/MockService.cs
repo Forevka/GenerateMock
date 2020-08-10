@@ -1,9 +1,12 @@
-﻿using GenerateMock.Utilities.Exceptions;
+﻿using System;
+using GenerateMock.Utilities.Exceptions;
+using GenerateMock.Utilities.Extensions;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace GenerateMock.Bll.Services
@@ -46,15 +49,28 @@ namespace GenerateMock.Bll.Services
             if (repoDb == null) 
                 throw ExceptionFactory.NotFoundException(ExceptionEnum.DatabaseWithGivenParametersNotExist, $"Can't find any database for path {user}/{repo}/{version}/{db}.Please check you database path parameters.");
 
-            var o = JObject.Parse(repoDb.DatabaseLoaded);
-            //posts?nested.test=123 - ok
-            return o.SelectTokens(jsonFilter).ToList();
-
+            try
+            {
+                var o = JObject.Parse(repoDb.DatabaseLoaded);
+                return o.SelectTokens(jsonFilter).ToList();
+            }
+            catch (IndexOutOfRangeException)
+            {
+                throw ExceptionFactory.SoftException(ExceptionEnum.ThisFeatureNotImplemented,
+                    "Indexing with negative numbers don't implemented yet.");
+            }
         }
 
-        private static string ParsePath(string[] queryPath)
+        private static string ParsePath(IEnumerable<string> queryPath)
         {
-            return "$." + string.Join('.', queryPath.ToList().Where(x => !string.IsNullOrEmpty(x)).Select(x => x.Split('?')[0]));
+            var pathBuilder = new StringBuilder("$");
+
+            foreach (var expr in queryPath.ToList().Where(x => !string.IsNullOrEmpty(x)).Select(x => x.Split('?')[0]))
+            {
+                pathBuilder.Append(int.TryParse(expr, out var intExpr) ? $"[{intExpr}]" : $".{expr}");
+            }
+
+            return pathBuilder.ToString(); //"$." + string.Join('.', ));
         }
 
         private static string ParseFilter(string[] lastQuery)
@@ -69,31 +85,26 @@ namespace GenerateMock.Bll.Services
             if (queryFilter == null)
                 return "";
 
-            string filterJsonPath = "[?(";
+            var filterJsonPath = new StringBuilder();
 
-            var filterIndex = 0;
-            foreach (var filter in queryFilter)
+            queryFilter.Each((filter, filterIndex) =>
             {
-                filterIndex++;
                 for (var valIndex = 0; valIndex < filter.Value.Count; valIndex++)
                 {
                     var value = filter.Value[valIndex];
-                    if (int.TryParse(value, out var result))
-                        filterJsonPath += $"@.{filter.Key}=={result}";
-                    else
-                        filterJsonPath += $"@.{filter.Key}=='{value}'";
+                    filterJsonPath.Append(int.TryParse(value, out var result)
+                        ? $"@.{filter.Key}=={result}"
+                        : $"@.{filter.Key}=='{value}'");
 
                     if (valIndex != filter.Value.Count - 1)
-                        filterJsonPath += " || ";
+                        filterJsonPath.Append(" || ");
                 }
 
-                if (filterIndex != queryFilter.Count)
-                    filterJsonPath += " || ";
-            }
+                if (filterIndex != queryFilter.Count - 1)
+                    filterJsonPath.Append(" || ");
+            });
 
-
-            filterJsonPath += ")]";
-            return filterJsonPath;
+            return $"[?({filterJsonPath})]";
         }
     }
 }

@@ -11,5 +11,6 @@
         DatabaseWithGivenParametersNotExist = 7,
         FileTypeNotValid = 8,
         FileContentNotValid = 9,
+        ThisFeatureNotImplemented = 10,
     }
 }
