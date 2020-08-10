@@ -2,8 +2,8 @@
 Description=Generate Mock app
 
 [Service]
-WorkingDirectory=/root/GenerateMock.WebApi.Builded/GenerateMock/GenerateMock.WebApi/bin/Release/netcoreapp3.0
-ExecStart=/usr/bin/dotnet /root/GenerateMock.WebApi.Builded/GenerateMock/GenerateMock.WebApi/bin/Release/netcoreapp3.0/GenerateMock.WebApi.dll
+WorkingDirectory=/root/GenerateMock.WebApi.Builded/src/backend/GenerateMock.WebApi/bin/Release/netcoreapp3.1
+ExecStart=/usr/bin/dotnet /root/GenerateMock.WebApi.Builded/src/backend/GenerateMock.WebApi/bin/Release/netcoreapp3.1/GenerateMock.WebApi.dll
 Restart=always
 # Restart service after 10 seconds if the dotnet service crashes:
 RestartSec=10
