@@ -7,7 +7,7 @@ if [[ $exist == "" ]]
 then
  echo "not exist ${serv}"
  echo "downloading"
- wget "https://raw.githubusercontent.com/Forevka/GenerateMock/master/Services/${serv}?token=AH3Q3WOCGGU4YIXRVCBLA5S7HLXL4" -P "/etc/systemd/system"
+ wget "https://raw.githubusercontent.com/Forevka/GenerateMock/master/Services/${serv}?token=AH3Q3WOCGGU4YIXRVCBLA5S7HLXL4" -O "/etc/systemd/system/${serv}"
  echo "downloaded"
  systemctl enable $serv
  echo "restarting"
