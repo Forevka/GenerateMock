@@ -12,11 +12,11 @@ namespace GenerateMock.WebApi.Controllers
     [ApiController]
     public class RepositoryController : ControllerBase
     {
-        private readonly ILogger<HubController> _logger;
+        private readonly ILogger<RepositoryController> _logger;
         private readonly ExploreHubService _exploreHubService;
         private readonly IMapper _mapper;
 
-        public RepositoryController(ILogger<HubController> logger, ExploreHubService exploreHubService, IMapper mapper)
+        public RepositoryController(ILogger<RepositoryController> logger, ExploreHubService exploreHubService, IMapper mapper)
         {
             _logger = logger;
             _exploreHubService = exploreHubService;
