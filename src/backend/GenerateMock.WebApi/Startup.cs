@@ -68,10 +68,6 @@ namespace GenerateMock.WebApi
                 });
 
 
-                var filePath = Path.Combine(System.AppContext.BaseDirectory, "GenerateMock.WebApi.xml");
-                c.IncludeXmlComments(filePath);
-
-
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement()
                 {
                     {

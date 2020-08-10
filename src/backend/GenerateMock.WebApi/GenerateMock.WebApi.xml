@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GenerateMock.WebApi</name>
+    </assembly>
+    <members>
+        <member name="T:GenerateMock.WebApi.Controllers.AuthorizationController">
+            <summary>
+            Authorization controller
+            </summary>
+        </member>
+        <member name="M:GenerateMock.WebApi.Controllers.AuthorizationController.#ctor(Microsoft.Extensions.Logging.ILogger{GenerateMock.WebApi.Controllers.AuthorizationController},GenerateMock.Security.AuthenticationService)">
+            <summary>
+            Authorization controller
+            </summary>
+            <param name="logger"></param>
+            <param name="authService"></param>
+        </member>
+        <member name="M:GenerateMock.WebApi.Controllers.AuthorizationController.Get(System.String,System.String)">
+            <summary>
+            Get authentication token
+            </summary>
+            <param name="login"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="T:GenerateMock.WebApi.Controllers.BaseApiController">
+            <summary>
+            Base controller
+            </summary>
+        </member>
+        <member name="M:GenerateMock.WebApi.Controllers.BaseApiController.CurrentUser">
+            <summary>
+            Current user
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GenerateMock.WebApi.Controllers.DatabaseController.LoadDatabase(System.Guid,System.String)">
+            <summary>
+            Registering new database file with given path and attaching it to given repository id
+            </summary>
+            <param name="repoId"></param>
+            <param name="dbFilePath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GenerateMock.WebApi.Controllers.DatabaseController.GetDatabase(System.Guid,System.Int32,System.String)">
+            <summary>
+            Get database 
+            </summary>
+            <param name="repoId">Repository id</param>
+            <param name="version">Database version. If -1 then would return latest</param>
+            <param name="dbName">Database name</param>
+            <returns></returns>
+        </member>
+        <member name="M:GenerateMock.WebApi.Controllers.DatabaseController.GetAvailableDatabase(System.Guid)">
+            <summary>
+            Get available database for repo
+            </summary>
+            <param name="repoId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:GenerateMock.WebApi.Controllers.MockController">
+            <summary>
+            Mock data controller
+            </summary>
+        </member>
+        <member name="M:GenerateMock.WebApi.Controllers.MockController.#ctor(GenerateMock.Bll.Services.MockService)">
+            <summary>
+            Mock data controller
+            </summary>
+            <param name="mockService"></param>
+        </member>
+        <member name="M:GenerateMock.WebApi.Controllers.MockController.GetData">
+            <summary>
+            Main url for retrieve data from mocked db
+            </summary>
+            <param name="version">db version</param>
+            <param name="user">user repository</param>
+            <param name="repo">repository name</param>
+            <param name="db">database file</param>
+            <returns></returns>
+        </member>
+        <member name="M:GenerateMock.WebApi.Controllers.MockController.GetSchema(System.String,System.String,System.String,System.String)">
+            <summary>
+            Get schema for given database
+            </summary>
+            <param name="version"></param>
+            <param name="user"></param>
+            <param name="repo"></param>
+            <param name="db"></param>
+            <returns></returns>
+        </member>
+        <member name="T:GenerateMock.WebApi.Controllers.RegistrationController">
+            <summary>
+            Registration controller
+            </summary>
+        </member>
+        <member name="M:GenerateMock.WebApi.Controllers.RegistrationController.#ctor(Microsoft.Extensions.Logging.ILogger{GenerateMock.WebApi.Controllers.RegistrationController},AutoMapper.IMapper,GenerateMock.Security.RegistrationService,GenerateMock.Security.AuthenticationService)">
+            <summary>
+            Registration controller
+            </summary>
+            <param name="logger"></param>
+            <param name="mapper"></param>
+            <param name="registrationService"></param>
+            <param name="authenticationService"></param>
+        </member>
+        <member name="M:GenerateMock.WebApi.Controllers.RegistrationController.Post(System.String,System.String)">
+            <summary>
+            Register new member
+            </summary>
+            <param name="login"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GenerateMock.WebApi.Controllers.RepositoryController.RegisterRepository(System.String,System.String)">
+            <summary>
+            Registering new repository in system
+            </summary>
+            <param name="userName"></param>
+            <param name="repoName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GenerateMock.WebApi.Controllers.RepositoryController.GetUserRepository(System.String)">
+            <summary>
+            Get all repositories for user
+            </summary>
+            <param name="username"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
