@@ -25,6 +25,8 @@ namespace GenerateMock.Dal.Context
         public virtual DbSet<UserDb> User { get; set; }
         public virtual DbSet<RepositoryDb> Repository { get; set; }
         public virtual DbSet<RepositoryDatabaseDb> RepositoryDatabase { get; set; }
+        public virtual DbSet<UserSecurity> UserSecurity { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -37,6 +39,21 @@ namespace GenerateMock.Dal.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasPostgresExtension("uuid-ossp");
+
+            modelBuilder.Entity<UserSecurity>()
+                .HasKey(x => x.UserId);
+
+            modelBuilder.Entity<Role>()
+                .HasKey(x => x.RoleId);
+
+            modelBuilder.Entity<UserSecurity>()
+                .HasOne(x => x.Role)
+                .WithMany(x => x.UserSecurities)
+                .HasForeignKey(x => x.RoleId);
+
+            modelBuilder.Entity<UserDb>()
+                .HasOne(x => x.UserSecurity)
+                .WithOne(x => x.User);
 
             modelBuilder.Entity<UserDb>()
                 .ToTable("User")

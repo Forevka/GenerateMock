@@ -20,7 +20,7 @@ namespace GenerateMock.Dal.CustomMapping
                 xx.First(y => y.DatabaseVersion == xx
                                   .OrderByDescending(x => x.DatabaseVersion)
                                   .Select(x => x.DatabaseVersion)
-                                  .FirstOrDefault()).Repository.UserDb.Username,
+                                  .FirstOrDefault()).Repository.RepositoryUsername,
                 xx.First(y => y.DatabaseVersion == xx
                                   .OrderByDescending(x => x.DatabaseVersion)
                                   .Select(x => x.DatabaseVersion)

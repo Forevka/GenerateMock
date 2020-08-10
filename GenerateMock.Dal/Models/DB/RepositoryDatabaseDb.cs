@@ -18,7 +18,7 @@ namespace GenerateMock.Dal.Models.DB
         public string GetApiUrl()
         {
             return
-                $"{Repository.UserDb.Username}/{Repository.RepositoryName}/v{DatabaseVersion}/{Path.GetFileNameWithoutExtension(DatabaseFilePath)}";
+                $"{Repository.RepositoryUsername}/{Repository.RepositoryName}/v{DatabaseVersion}/{Path.GetFileNameWithoutExtension(DatabaseFilePath)}";
         }
     }
 }

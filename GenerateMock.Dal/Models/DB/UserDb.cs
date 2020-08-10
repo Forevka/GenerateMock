@@ -11,9 +11,9 @@ namespace GenerateMock.Dal.Models.DB
         }
 
         public Guid UserId { get; set; }
-        public string Username { get; set; }
         public DateTime CreatedDate { get; set; }
 
+        public virtual UserSecurity UserSecurity { get; set; }
         public virtual ICollection<RepositoryDb> Repositories { get; set; }
     }
 }

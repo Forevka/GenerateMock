@@ -28,15 +28,16 @@ namespace GenerateMock.Bll.Services
 
         public async Task<List<RepositoryDb>> GetUserRepositories(string username)
         {
-            return await _publicContext.Repository.Include(x => x.RepositoryDatabase).Where(x => x.UserDb.Username == username)
+            return await _publicContext.Repository.Include(x => x.RepositoryDatabase).Where(x => x.RepositoryUsername == username)
                 .ToListAsync();
         }
 
-        public async Task<RepositoryDb> RegisterRepository(string userName, string repositoryName)
+        public async Task<RepositoryDb> RegisterRepository(string userName, string repositoryName, Guid userId)
         {
-            var user = await _userService.AddUserIfNotExist(userName);
 
-            var repo = await CreateRepositoryIfNotExist(repositoryName, user.UserId);
+            //var user = await _userService.AddUserIfNotExist(userName);
+
+            var repo = await CreateRepositoryIfNotExist(repositoryName, userName, userId);
 
             return repo;
         }
@@ -53,7 +54,7 @@ namespace GenerateMock.Bll.Services
 
             try
             {
-                var repoDbContent = await _gitHubClient.Repository.Content.GetRawContent(repo.UserDb.Username, repo.RepositoryName,
+                var repoDbContent = await _gitHubClient.Repository.Content.GetRawContent(repo.RepositoryUsername, repo.RepositoryName,
                     dbFilePath);
                 repoDbJson = Encoding.UTF8.GetString(repoDbContent);
 
@@ -144,15 +145,14 @@ namespace GenerateMock.Bll.Services
 
             var repoDb = await _publicContext.Repository
                 .Include(x => x.RepositoryDatabase)
-                .Include(x => x.UserDb)
                 .FirstOrDefaultAsync(x =>
                     x.RepositoryName == repo 
-                    && x.UserDb.Username == user);
+                    && x.RepositoryUsername == user);
 
             return repoDb?.RepositoryDatabase.FirstOrDefault(x => x.DatabaseVersion == parsedVersion && x.DatabaseFilePath == db + ".json");
         }
 
-        public async Task<RepositoryDb> CreateRepositoryIfNotExist(string repoName, Guid userId)
+        public async Task<RepositoryDb> CreateRepositoryIfNotExist(string repoName, string userName, Guid userId)
         {
             var repo = await _publicContext.Repository.FirstOrDefaultAsync(x => x.RepositoryName == repoName && x.OwnerId == userId);
 
@@ -162,6 +162,7 @@ namespace GenerateMock.Bll.Services
             {
                 RepositoryId = Guid.NewGuid(),
                 RepositoryName = repoName,
+                RepositoryUsername = userName,
                 OwnerId = userId,
             };
 

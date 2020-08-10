@@ -5,12 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GenerateMock.WebApi.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class RepositoryController : ControllerBase
+    public class RepositoryController : BaseApiController
     {
         private readonly ILogger<RepositoryController> _logger;
         private readonly ExploreHubService _exploreHubService;
@@ -29,10 +30,12 @@ namespace GenerateMock.WebApi.Controllers
         /// <param name="userName"></param>
         /// <param name="repoName"></param>
         /// <returns></returns>
+
+        [Authorize(Roles = "Member")]
         [HttpPost]
         public async Task<Dal.Models.DB.RepositoryDb> RegisterRepository(string userName, string repoName)
         {
-            return await _exploreHubService.RegisterRepository(userName, repoName);
+            return await _exploreHubService.RegisterRepository(userName, repoName, CurrentUser());
         }
 
         /// <summary>

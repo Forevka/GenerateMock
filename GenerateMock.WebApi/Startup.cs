@@ -13,6 +13,10 @@ using Octokit;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using GenerateMock.Security.Options;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Hosting;
 
 namespace GenerateMock.WebApi
 {
@@ -41,6 +45,10 @@ namespace GenerateMock.WebApi
             services.AddTransient<UserService>();
             services.AddTransient<ExploreHubService>();
             services.AddTransient<MockService>();
+            services.AddTransient<GenerateMock.Security.RegistrationService>();
+            services.AddTransient<GenerateMock.Security.AuthenticationService>();
+            services.AddTransient<GenerateMock.Security.PasswordHasherService>();
+
             services.AddTransient<IGitHubClient>(x => new GitHubClient(new ProductHeaderValue("GenerateMock")));
 
             IMapper mapper = mappingConfig.CreateMapper();
@@ -83,6 +91,24 @@ namespace GenerateMock.WebApi
                     }
                 });
             });
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = AuthOptions.Issuer,
+
+                        ValidateAudience = true,
+                        ValidAudience = AuthOptions.Audience,
+                        ValidateLifetime = true,
+
+                        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                        ValidateIssuerSigningKey = true,
+                    };
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -95,7 +121,19 @@ namespace GenerateMock.WebApi
                 app.UseDeveloperExceptionPage();
             }*/
 
-            app.UseSwagger();
+            if (env.IsDevelopment())
+            {
+                app.UseSwagger();
+            }
+            else
+            {
+                var basePath = "/api/mock";
+                app.UseSwagger(c => c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
+                {
+                    swaggerDoc.Servers = new List<OpenApiServer>
+                        {new OpenApiServer {Url = $"{httpReq.Scheme}://{httpReq.Host.Value}{basePath}"}};
+                }));
+            }
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.
@@ -106,8 +144,12 @@ namespace GenerateMock.WebApi
 
             //app.UseHttpsRedirection();
 
+            app.UseCors(x => x.AllowAnyOrigin());
+            app.UseCors(x => x.AllowAnyHeader());
+
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

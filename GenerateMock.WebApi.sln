@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateMock.WebApi", "GenerateMock.WebApi\GenerateMock.WebApi.csproj", "{2062DFF1-AF96-42C2-A30C-C140DFD57E88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenerateMock.WebApi", "GenerateMock.WebApi\GenerateMock.WebApi.csproj", "{2062DFF1-AF96-42C2-A30C-C140DFD57E88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateMock.Bll", "GenerateMock.Bll\GenerateMock.Bll.csproj", "{C653C027-7CB9-43EA-945B-0690D133DE5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenerateMock.Bll", "GenerateMock.Bll\GenerateMock.Bll.csproj", "{C653C027-7CB9-43EA-945B-0690D133DE5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateMock.Dal", "GenerateMock.Dal\GenerateMock.Dal.csproj", "{C376BE6F-7CF8-499C-9254-90B0CD279E8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenerateMock.Dal", "GenerateMock.Dal\GenerateMock.Dal.csproj", "{C376BE6F-7CF8-499C-9254-90B0CD279E8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateMock.Utilities", "GenerateMock.Utilities\GenerateMock.Utilities.csproj", "{25122E97-E040-44D4-8E3E-0F7AF4E2C198}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenerateMock.Utilities", "GenerateMock.Utilities\GenerateMock.Utilities.csproj", "{25122E97-E040-44D4-8E3E-0F7AF4E2C198}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateMock.WebApi.Tests", "GenerateMock.WebApi.Tests\GenerateMock.WebApi.Tests.csproj", "{0669FC32-0E2E-4F3E-8CE8-EC1541CF18EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateMock.Security", "GenerateMock.Security\GenerateMock.Security.csproj", "{4167741E-35D9-4BF1-A15D-A5C51EAB755C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{25122E97-E040-44D4-8E3E-0F7AF4E2C198}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25122E97-E040-44D4-8E3E-0F7AF4E2C198}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25122E97-E040-44D4-8E3E-0F7AF4E2C198}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0669FC32-0E2E-4F3E-8CE8-EC1541CF18EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0669FC32-0E2E-4F3E-8CE8-EC1541CF18EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0669FC32-0E2E-4F3E-8CE8-EC1541CF18EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0669FC32-0E2E-4F3E-8CE8-EC1541CF18EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4167741E-35D9-4BF1-A15D-A5C51EAB755C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4167741E-35D9-4BF1-A15D-A5C51EAB755C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4167741E-35D9-4BF1-A15D-A5C51EAB755C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4167741E-35D9-4BF1-A15D-A5C51EAB755C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

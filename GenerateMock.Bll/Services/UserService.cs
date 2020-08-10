@@ -18,7 +18,7 @@ namespace GenerateMock.Bll.Services
             _publicContext = publicContext;
         }
 
-        public async Task<UserDb> AddUserIfNotExist(string userName)
+        /*public async Task<UserDb> AddUserIfNotExist(string userName)
         {
             var user = await _publicContext.User.FirstOrDefaultAsync(x => x.Username == userName);
 
@@ -35,9 +35,9 @@ namespace GenerateMock.Bll.Services
             }
 
             return user;
-        }
+        }*/
 
-        public async Task<UserDb> GetUser(string userName)
+        /*public async Task<UserDb> GetUser(string userName)
         {
             var user = await _publicContext.User.FirstOrDefaultAsync(x => x.Username == userName);
 
@@ -45,6 +45,6 @@ namespace GenerateMock.Bll.Services
                 throw ExceptionFactory.SoftException(ExceptionEnum.UserNotFound, "User not found");
 
             return user;
-        }
+        }*/
     }
 }
