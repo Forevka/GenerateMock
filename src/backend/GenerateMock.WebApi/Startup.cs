@@ -135,7 +135,10 @@ namespace GenerateMock.WebApi
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "GenerateMock API V1");
+                c.SwaggerEndpoint("./v1/swagger.json", "Mock API V1");
+                c.InjectJavascript("https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js");
+                c.InjectJavascript("https://unpkg.com/browse/webextension-polyfill@0.6.0/dist/browser-polyfill.min.js", type: "text/html");
+                c.InjectJavascript("https://gist.githack.com/Forevka/9fce64939480e999e95d3f86d56d2ea4/raw/db02533dd876209e668b1771bbf5a8a7586c2c53/customJs.js");
             });
 
             //app.UseHttpsRedirection();
