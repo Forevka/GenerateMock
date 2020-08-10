@@ -57,7 +57,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        script: wget "https://raw.githack.com/Forevka/GenerateMock/master/Services/generate-mock-webapi.service" -O "/root/service-check"
+        script: wget "https://raw.githubusercontent.com/Forevka/GenerateMock/master/service-check?token=AH3Q3WO476XOGKVP3RLUJQC7HLU3C" -O "/root/service-check"
     - name: Giving rights for service check
       uses: appleboy/ssh-action@master
       with:
