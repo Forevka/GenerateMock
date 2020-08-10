@@ -1,3 +1,4 @@
+using System;
 using AutoMapper;
 using GenerateMock.Bll.Services;
 using GenerateMock.Dal;
@@ -10,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Octokit;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 
 namespace GenerateMock.WebApi
 {
@@ -26,6 +29,7 @@ namespace GenerateMock.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
 
             var mappingConfig = new MapperConfiguration(mc =>
             {
@@ -54,6 +58,11 @@ namespace GenerateMock.WebApi
                     Type = SecuritySchemeType.ApiKey,
                     Scheme = "Bearer",
                 });
+
+
+                var filePath = Path.Combine(System.AppContext.BaseDirectory, "GenerateMock.WebApi.xml");
+                c.IncludeXmlComments(filePath);
+
 
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement()
                 {

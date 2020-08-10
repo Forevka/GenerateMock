@@ -5,7 +5,6 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace GenerateMock.Bll.Services
 {
@@ -31,7 +30,7 @@ namespace GenerateMock.Bll.Services
         {
             var jsonFilter = "";
 
-            query = HttpUtility.UrlDecode(query)?.TrimStart('/');
+            query = query.TrimStart('/');
 
             if (!string.IsNullOrEmpty(query))
             {
