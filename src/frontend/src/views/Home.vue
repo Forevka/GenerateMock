@@ -13,22 +13,44 @@
       </p>
     </div>
   </div>
-  <deckgo-highlight-code>
-    <code slot="code">console.log('Hello World');</code>
-  </deckgo-highlight-code>
+  <div class="flex justify-center space-x-16 m-4">
+    <browser-presentation :urlHost="'github.com'" :urlQuery="'/user/repo/branch/db.json'" :code="gCode"/>
+    <arrow class="self-center" />
+    <browser-presentation :urlHost="'mysite.com'" :urlQuery="'/user/repo/v1/db/posts'" :code="rCode"/>
+  </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import HelloWorld from '@/components/HelloWorld.vue';
-
+import BrowserPresentation from '@/components/BrowserPresentation.vue';
+import Arrow from '@/components/Arrow.vue';
 
 @Component({
   components: {
-    HelloWorld,
+    BrowserPresentation,
+    Arrow,
   },
 })
 export default class Home extends Vue {
+  private gCode: string = `{
+  "posts": [
+    {
+      "id": 1,
+      "title": "hello"
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}`
+  private rCode: string = `{
+  "id": 1,
+  "title": "hello"
+}`
 }
 </script>
+
+<style lang="scss" scoped>
+
+</style>

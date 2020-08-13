@@ -5,9 +5,13 @@ import store from './store';
 
 // @ts-ignore
 import VueTailwind from 'vue-tailwind';
-import '@deckdeckgo/highlight-code';
+/*import '@deckdeckgo/highlight-code';
 import { defineCustomElements as deckDeckGoElement } from '@deckdeckgo/highlight-code/dist/loader';
-deckDeckGoElement();
+deckDeckGoElement();*/
+
+// @ts-ignore
+import 'prismjs';
+import 'prismjs/themes/prism-tomorrow.css';
 
 const theme = {};
 
