@@ -43,7 +43,7 @@
           </button>
         </div>
         <div
-          class="p-48 flex-1 flex items-center justify-center sm:items-stretch sm:justify-start"
+          class="pl-48 flex-1 flex items-center justify-center sm:items-stretch sm:justify-start"
         >
           <!--<div class="flex-shrink-0">
             <img class="block lg:hidden h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-on-dark.svg" alt="Workflow logo">
@@ -75,17 +75,21 @@
           >
             <div>
               <button
-                class="p-48 flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out"
+                class="mr-48 flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out"
                 id="user-menu"
                 aria-label="User menu"
                 aria-haspopup="true"
               >
-                <img
-                  id="user-menu-img"
-                  class="h-8 w-8 rounded-full"
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                  alt=""
-                />
+                <svg fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  stroke="teal"
+                  class="h-6 w-6"
+                  id="user-menu-img">
+                  <path id="user-menu-img" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+							</svg>
               </button>
             </div>
             <!--
@@ -105,6 +109,7 @@
                 absolute: true,
                 'right-0': true,
                 'mt-2': true,
+                'mr-48': true,
                 'w-48': true,
                 'rounded-md': true,
                 'shadow-lg': true,
@@ -128,7 +133,7 @@
                   href="#"
                   class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                   role="menuitem"
-                  >Repositories</a
+                  >Dashboard</a
                 >
                 <!--<a href="#" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Settings</a>-->
                 <a
@@ -141,7 +146,7 @@
               </div>
             </div>
           </div>
-          <div class="p-48" v-else>
+          <div class="pr-48" v-else>
             <router-link 
               to="/login"
               class="bg-white hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
@@ -192,14 +197,15 @@ export default class NavBar extends Vue {
 
   private async mounted() {
     window.document.addEventListener('click', (ev: Event) => {
+      console.log({ev})
       if (ev.srcElement) {
         if ((ev.srcElement as HTMLBaseElement).id.includes('user-menu')) {
           this.isMenuOpen = !this.isMenuOpen;
           return;
         }
-
-        this.isMenuOpen = false;
       }
+
+      this.isMenuOpen = false;
     });
   }
 }

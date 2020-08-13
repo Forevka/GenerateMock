@@ -30,7 +30,6 @@ namespace GenerateMock.WebApi.Controllers
         /// <param name="userName"></param>
         /// <param name="repoName"></param>
         /// <returns></returns>
-
         [Authorize(Roles = "Member")]
         [HttpPost]
         public async Task<Dal.Models.DB.RepositoryDb> RegisterRepository(string userName, string repoName)

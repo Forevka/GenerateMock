@@ -10,27 +10,51 @@
 
         <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
             <p class="mt-6 text-center text-3xl text-gray-900">Join Us.</p>
+            <div v-if="isError" class="bg-red-100 border-t-4 border-red-500 rounded-b text-red-900 px-4 py-3 shadow-md" role="alert">
+                <div class="flex justify-center">
+                    <div>
+                        <p v-html="errorBadgeText" class="font-bold text-left"></p>
+                    </div>
+                </div>
+            </div>
+            <div v-if="isWarning" class="bg-orange-100 border-t-4 border-orange-500 rounded-b text-orange-900 px-4 py-3 shadow-md" role="alert">
+                <div class="flex justify-center">
+                    <div>
+                        <p v-html="warningBadgeText" class="font-bold text-left"></p>
+                    </div>
+                </div>
+            </div>
             <form class="flex flex-col pt-3 md:pt-8" onsubmit="event.preventDefault();">
                 <div class="flex flex-col pt-4">
-                    <label for="email" class="text-lg">Email</label>
-                    <input type="email" id="email" placeholder="your@email.com" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                    <label for="login" class="text-lg">Login</label>
+                    <input v-model="userLogin" required type="login" id="login" placeholder="your@login" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
 
                 <div class="flex flex-col pt-4">
                     <label for="password" class="text-lg">Password</label>
-                    <input type="password" id="password" placeholder="Password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                    <input v-model="userPassword" required type="password" id="password" placeholder="Password"
+                    v-on:click="isPasswordNotSame = false" 
+                    :class="{
+                        'border-red-500': isPasswordNotSame, 
+                        'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline': true
+                        }">
                 </div>
 
                 <div class="flex flex-col pt-4">
                     <label for="confirm-password" class="text-lg">Confirm Password</label>
-                    <input type="password" id="confirm-password" placeholder="Password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                    <input v-model="userPasswordConfirm" required type="password" id="confirm-password" placeholder="Password" 
+                    v-on:click="isPasswordNotSame = false" 
+                    :class="{
+                        'border-red-500': isPasswordNotSame, 
+                        'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline': true
+                        }">
                 </div>
 
-                <input 
-                    type="submit" 
-                    value="Register" 
+                <button 
+                    type="submit"
+                    v-on:click="register"
                     class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out p-2 mt-8"
-                    >
+                    >Register</button>
             </form>
             <div class="text-center pt-12 pb-12">
                 <p>Already have an account? <router-link to="/login" class="underline font-semibold">Log in here.</router-link></p>
@@ -52,3 +76,44 @@
     height: calc(100vh - 4rem);
 }
 </style>
+
+
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import apiClient from '@/api/ApiClient';
+
+@Component({})
+export default class Register extends Vue {
+    private userLogin: string = '';
+    private userPassword: string = '';
+    private userPasswordConfirm: string = '';
+    private errorBadgeText: string = '';
+    private warningBadgeText: string = '';
+
+    private isError: boolean = false;
+    private isWarning: boolean = false;
+    private isPasswordNotSame: boolean = true;
+
+    private async register() {
+        if (this.userLogin === '' || this.userPassword === '' || this.userPasswordConfirm === '') {return; }
+
+        if (this.userPassword !== this.userPasswordConfirm) {
+            this.isWarning = true;
+            this.warningBadgeText = 'Passwords must be the same'
+            this.isPasswordNotSame = true;
+            return;
+        }
+        this.isWarning = false;
+        this.isPasswordNotSame = false;
+
+        await apiClient.registerUser(this.userLogin, this.userPassword).then((x: any) => {
+            localStorage.setItem('login', x.data.login);
+            localStorage.setItem('token', x.data.access_token);
+            this.$router.push('/dashboard');
+        }).catch((err: any) => {
+            this.isError = true;
+            this.errorBadgeText = err.response.data.Message.replace(/(\r\n|\n|\r)/gm, '<br />');
+        });
+    }
+}
+</script>

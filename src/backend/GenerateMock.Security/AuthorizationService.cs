@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using GenerateMock.Dal.Context;
+using GenerateMock.Dal.Models.DB;
 using GenerateMock.Security.Options;
 using GenerateMock.Utilities.Exceptions;
 using Microsoft.EntityFrameworkCore;
@@ -62,5 +63,10 @@ namespace GenerateMock.Security
             return "Bearer " + new JwtSecurityTokenHandler().WriteToken(jwt);
         }
 
+        public async Task<UserDb> GetUser(Guid userId)
+        {
+            return await _context.User.Include(x => x.UserSecurity).ThenInclude(x => x.Role)
+                .FirstOrDefaultAsync(x => x.UserId == userId);
+        }
     }
 }

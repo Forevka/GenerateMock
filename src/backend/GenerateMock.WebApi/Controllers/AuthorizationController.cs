@@ -3,6 +3,8 @@ using GenerateMock.Security;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GenerateMock.WebApi.Controllers
 {
@@ -11,21 +13,24 @@ namespace GenerateMock.WebApi.Controllers
     /// </summary>
     [ApiController]
     [Route("[controller]")]
-    public class AuthorizationController : ControllerBase
+    public class AuthorizationController : BaseApiController
     {
         private readonly ILogger<AuthorizationController> _logger;
         private readonly AuthenticationService _authService;
+        private readonly IMapper _mapper;
 
         /// <summary>
         /// Authorization controller
         /// </summary>
         /// <param name="logger"></param>
         /// <param name="authService"></param>
-        public AuthorizationController(ILogger<AuthorizationController> logger, AuthenticationService authService)
+        /// <param name="mapper"></param>
+        public AuthorizationController(ILogger<AuthorizationController> logger, AuthenticationService authService, IMapper mapper)
         {
             _logger = logger;
 
             _authService = authService;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -35,7 +40,7 @@ namespace GenerateMock.WebApi.Controllers
         /// <param name="password"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<RegistrationOutViewModel> Get(string login, string password)
+        public async Task<RegistrationOutViewModel> GetToken(string login, string password)
         {
             var identity = await _authService.GetIdentity(login, password);
 
@@ -48,5 +53,15 @@ namespace GenerateMock.WebApi.Controllers
             };
         }
 
+        /// <summary>
+        /// Get current authenticated user
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("Me")]
+        [Authorize(Roles = "Member")]
+        public async Task<UserOutViewModel> Get()
+        {
+            return _mapper.Map<UserOutViewModel>(await _authService.GetUser(CurrentUser()));
+        }
     }
 }

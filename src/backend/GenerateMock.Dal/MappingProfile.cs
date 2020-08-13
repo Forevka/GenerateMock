@@ -13,6 +13,10 @@ namespace GenerateMock.Dal
                     o => o.MapFrom(x => x.GetApiUrl()));
 
             CreateMap<RepositoryDb, RepositoryOutViewModel>();
+
+            CreateMap<UserDb, UserOutViewModel>();
+            CreateMap<UserSecurity, UserSecurityOutViewModel>();
+            CreateMap<Role, RoleOutViewModel>();
         }
     }
 }

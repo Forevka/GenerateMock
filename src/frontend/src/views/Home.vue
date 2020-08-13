@@ -58,11 +58,11 @@ export default class Home extends Vue {
   "profile": {
     "name": "typicode"
   }
-}`
+}`;
   private rCode: string = `{
   "id": 1,
   "title": "hello"
-}`
+}`;
 }
 </script>
 

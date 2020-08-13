@@ -25,9 +25,9 @@ export default class BrowserPresentation extends Vue {
     @Prop() private urlHost!: string;
     @Prop() private urlQuery!: string;
 
-    async mounted() {
+    private async mounted() {
       // @ts-ignore
-      Prism.highlightAll()
+      Prism.highlightAll();
     }
 }
 </script>
