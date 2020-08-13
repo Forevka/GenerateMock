@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-gray-800">
+  <nav class="w-screen fixed bg-gray-800 z-10">
     <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
       <div class="relative flex items-center justify-between h-16">
         <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -43,7 +43,7 @@
           </button>
         </div>
         <div
-          class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start"
+          class="p-48 flex-1 flex items-center justify-center sm:items-stretch sm:justify-start"
         >
           <!--<div class="flex-shrink-0">
             <img class="block lg:hidden h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-on-dark.svg" alt="Workflow logo">
@@ -75,7 +75,7 @@
           >
             <div>
               <button
-                class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out"
+                class="p-48 flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out"
                 id="user-menu"
                 aria-label="User menu"
                 aria-haspopup="true"
@@ -141,7 +141,7 @@
               </div>
             </div>
           </div>
-          <div v-else>
+          <div class="p-48" v-else>
             <router-link 
               to="/login"
               class="bg-white hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">

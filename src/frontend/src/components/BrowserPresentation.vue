@@ -1,5 +1,5 @@
 <template>
-    <div class="terminal-window">
+    <div class="terminal-window shadow-2xl">
     <header>
         <div class="button green"></div>
         <div class="button yellow"></div>

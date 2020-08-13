@@ -1,6 +1,6 @@
 <template>
-<div class="bg-gray-300 font-family-karla h-screen">
-    <div class="w-full flex flex-wrap">
+<div class="pt-16 font-family-karla h-screen">
+    <div class="bg-gray-300 w-full flex flex-wrap">
         <!-- Login Section -->
         <div class="w-full md:w-1/2 flex flex-col">
             <div class="flex justify-center md:justify-start pt-12 md:pl-12 md:-mb-24">

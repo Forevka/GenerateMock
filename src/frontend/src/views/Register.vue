@@ -1,6 +1,6 @@
 <template>
-<div class="bg-gray-300 font-family-karla h-screen">
-<div class="w-full flex flex-wrap">
+<div class="pt-16 font-family-karla h-screen">
+<div class="w-full bg-gray-300 flex flex-wrap">
     <!-- Register Section -->
     <div class="w-full md:w-1/2 flex flex-col">
 
