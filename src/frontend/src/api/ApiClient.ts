@@ -1,7 +1,11 @@
-import axios, { AxiosResponse, AxiosInstance, AxiosRequestConfig } from 'axios';
-import { IAuthModel } from '@/models/responses/IAuthModel';
+import axios, { AxiosResponse, AxiosInstance, AxiosRequestConfig, AxiosError } from 'axios';
+import { IAuthModel } from '../models/responses/IAuthModel';
+import { IGetMe } from '../models/responses/IGetMe';
+import router from '../router';
 
 class ApiClient {
+    public IsLogged: boolean = false;
+
     // tslint:disable-next-line: variable-name
     private _axiosClient: AxiosInstance;
 
@@ -9,7 +13,8 @@ class ApiClient {
         this._axiosClient = axios.create({
             baseURL: 'http://194.99.21.140/api/mock',
         });
-        this._axiosClient.interceptors.response.use((response) => this.authTokenExpiredInterceptor(response));
+        this._axiosClient.interceptors.response.use((response) => this.ok(response),
+        (error) => this.authTokenExpiredInterceptor(error));
     }
 
     public async updateToken(): Promise<void> {
@@ -18,6 +23,7 @@ class ApiClient {
                 if (x.status === 200) {
                     localStorage.setItem('token', x.data.access_token);
                     this._axiosClient.defaults.headers.Authorization = x.data.access_token;
+                    this.IsLogged = true;
                 }
             })
             .catch((x) => {
@@ -40,6 +46,16 @@ class ApiClient {
         return await this._axiosClient.post<IAuthModel>(`Registration?login=${login}&password=${password}`);
     }
 
+    public async getMe(): Promise<AxiosResponse<IGetMe>> {
+        const token = localStorage.getItem('token');
+        if (token) {
+            this._axiosClient.defaults.headers.Authorization = token;
+            return await this._axiosClient.get('Authorization/Me');
+        }
+
+        return new Promise<AxiosResponse<IGetMe>>((resolve, r) => resolve(null));
+    }
+
 
     public async get<T = any, R = AxiosResponse<T>>(url: string, config?: AxiosRequestConfig): Promise<R> {
         return this._axiosClient.get<T, R>(url, config);
@@ -49,13 +65,17 @@ class ApiClient {
         return this._axiosClient.post<T, R>(url, data, config);
     }
 
-    private authTokenExpiredInterceptor(response: AxiosResponse<any>): AxiosResponse<any> {
-        if (response.status === 401) {
-            // console.log('unathorized');
-            this.fetchToken();
-        }
-
+    private ok(response: AxiosResponse<any>): AxiosResponse<any> {
+        this.IsLogged = true;
         return response;
+    }
+
+    private authTokenExpiredInterceptor(error: AxiosError<any>): void {
+        if (error.response.status === 401) {
+            this.IsLogged = false;
+            localStorage.removeItem('token');
+            router.push('/login');
+        }
     }
 }
 

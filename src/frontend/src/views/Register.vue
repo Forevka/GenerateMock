@@ -80,7 +80,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import apiClient from '@/api/ApiClient';
+import apiClient from '../api/ApiClient';
 
 @Component({})
 export default class Register extends Vue {
@@ -110,6 +110,7 @@ export default class Register extends Vue {
             localStorage.setItem('login', x.data.login);
             localStorage.setItem('token', x.data.access_token);
             this.$router.push('/dashboard');
+            apiClient.IsLogged = true;
         }).catch((err: any) => {
             this.isError = true;
             this.errorBadgeText = err.response.data.Message.replace(/(\r\n|\n|\r)/gm, '<br />');

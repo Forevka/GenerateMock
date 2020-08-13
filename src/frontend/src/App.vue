@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav-bar :isLogged="true" />
+    <nav-bar :isLogged="isLogged()" />
     
     <router-view/>
   </div>
@@ -10,6 +10,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import NavBar from '@/components/NavBar.vue';
+import apiClient from '@/api/ApiClient';
 
 @Component({
   components: {
@@ -17,6 +18,13 @@ import NavBar from '@/components/NavBar.vue';
   },
 })
 export default class App extends Vue {
+  private isLogged(): boolean {
+    return apiClient.IsLogged;
+  }
+
+  private async mounted() {
+    await apiClient.getMe();
+  }
 }
 </script>
 
