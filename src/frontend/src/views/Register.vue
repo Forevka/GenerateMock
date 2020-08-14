@@ -27,12 +27,12 @@
             <form class="flex flex-col pt-3 md:pt-8" onsubmit="event.preventDefault();">
                 <div class="flex flex-col pt-4">
                     <label for="login" class="text-lg">Login</label>
-                    <input v-model="userLogin" required type="login" id="login" placeholder="your@login" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                    <input autocomplete="username" v-model="userLogin" required type="login" id="login" placeholder="your@login" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
 
                 <div class="flex flex-col pt-4">
                     <label for="password" class="text-lg">Password</label>
-                    <input v-model="userPassword" required type="password" id="password" placeholder="Password"
+                    <input autocomplete="new-password" v-model="userPassword" required type="password" id="password" placeholder="Password"
                     v-on:click="isPasswordNotSame = false" 
                     :class="{
                         'border-red-500': isPasswordNotSame, 
@@ -42,7 +42,7 @@
 
                 <div class="flex flex-col pt-4">
                     <label for="confirm-password" class="text-lg">Confirm Password</label>
-                    <input v-model="userPasswordConfirm" required type="password" id="confirm-password" placeholder="Password" 
+                    <input autocomplete="new-password" v-model="userPasswordConfirm" required type="password" id="confirm-password" placeholder="Password" 
                     v-on:click="isPasswordNotSame = false" 
                     :class="{
                         'border-red-500': isPasswordNotSame, 
@@ -94,6 +94,12 @@ export default class Register extends Vue {
     private isWarning: boolean = false;
     private isPasswordNotSame: boolean = true;
 
+    private async created() {
+        if (apiClient.IsLogged) {
+            this.$router.push('/dashboard');
+        }
+    }
+
     private async register() {
         if (this.userLogin === '' || this.userPassword === '' || this.userPasswordConfirm === '') {return; }
 
@@ -108,9 +114,11 @@ export default class Register extends Vue {
 
         await apiClient.registerUser(this.userLogin, this.userPassword).then((x: any) => {
             localStorage.setItem('login', x.data.login);
-            localStorage.setItem('token', x.data.access_token);
-            this.$router.push('/dashboard');
+            
+            apiClient.updateToken(x.data.access_token);
             apiClient.IsLogged = true;
+
+            this.$router.push('/dashboard');
         }).catch((err: any) => {
             this.isError = true;
             this.errorBadgeText = err.response.data.Message.replace(/(\r\n|\n|\r)/gm, '<br />');

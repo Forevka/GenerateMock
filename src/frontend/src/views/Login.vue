@@ -19,12 +19,12 @@
                 <form class="flex flex-col pt-3 md:pt-8" onsubmit="event.preventDefault();">
                     <div class="flex flex-col pt-4">
                         <label for="email" class="text-lg">Login</label>
-                        <input v-model="userLogin" id="login" placeholder="your@login" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                        <input autocomplete="username" v-model="userLogin" id="login" placeholder="your@login" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                     </div>
     
                     <div class="flex flex-col pt-4">
                         <label for="password" class="text-lg">Password</label>
-                        <input v-model="userPassword" type="password" id="password" placeholder="Password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                        <input autocomplete="current-password" v-model="userPassword" type="password" id="password" placeholder="Password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                     </div>
     
                     <button 
@@ -64,12 +64,20 @@ export default class Login extends Vue {
 
     private isError: boolean = false;
 
+    private async created() {
+        if (apiClient.IsLogged) {
+            this.$router.push('/dashboard');
+        }
+    }
+
     private async login() {
         await apiClient.fetchToken(this.userLogin, this.userPassword).then((x: any) => {
             localStorage.setItem('login', x.data.login);
-            localStorage.setItem('token', x.data.access_token);
-            this.$router.push('/dashboard');
+
+            apiClient.updateToken(x.data.access_token);
             apiClient.IsLogged = true;
+            
+            this.$router.push('/dashboard');
         }).catch((err: any) => {
             this.isError = true;
             this.errorBadgeText = err.response.data.Message;

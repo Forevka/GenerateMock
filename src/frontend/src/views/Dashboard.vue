@@ -14,10 +14,8 @@ import apiClient from '../api/ApiClient';
 })
 export default class Dashboard extends Vue {
     private async mounted() {
-        const me = await apiClient.getMe();
-        console.log(me)
-        if (!me) {
-            this.$router.push('/login')
+        if (apiClient.IsLogged === false) {
+            this.$router.push('/')
         }
     }
 }

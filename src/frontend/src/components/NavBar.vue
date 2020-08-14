@@ -42,8 +42,14 @@
             </svg>
           </button>
         </div>
+        <router-link to="/" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+          </svg>
+          <span class="text-gray-500 ml-3 text-xl">Mock API</span>
+        </router-link>
         <div
-          class="pl-48 flex-1 flex items-center justify-center sm:items-stretch sm:justify-start"
+          class="pl-12 flex-1 flex items-center justify-center sm:items-stretch sm:justify-start"
         >
           <!--<div class="flex-shrink-0">
             <img class="block lg:hidden h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-on-dark.svg" alt="Workflow logo">
@@ -80,7 +86,7 @@
                 aria-label="User menu"
                 aria-haspopup="true"
               >
-                <svg fill="none"
+                <!--<svg fill="none"
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   stroke-width="2"
@@ -89,7 +95,8 @@
                   class="h-6 w-6"
                   id="user-menu-img">
                   <path id="user-menu-img" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-							</svg>
+							</svg>-->
+              <img id="user-menu-img" src="https://img.icons8.com/color/48/000000/test-account.png"/>
               </button>
             </div>
             <!--
@@ -128,12 +135,12 @@
                 aria-orientation="vertical"
                 aria-labelledby="user-menu"
               >
-                <a
+                <router-link
                   id="repo"
-                  href="#"
+                  to="/dashboard"
                   class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                   role="menuitem"
-                  >Dashboard</a
+                  >Dashboard</router-link
                 >
                 <!--<a href="#" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Settings</a>-->
                 <a
@@ -187,6 +194,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import apiClient from '../api/ApiClient';
 
 @Component({})
 export default class NavBar extends Vue {

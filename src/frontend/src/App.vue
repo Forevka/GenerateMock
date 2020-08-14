@@ -18,12 +18,12 @@ import apiClient from '@/api/ApiClient';
   },
 })
 export default class App extends Vue {
-  private isLogged(): boolean {
+  public isLogged(): boolean {
     return apiClient.IsLogged;
   }
 
   private async mounted() {
-    await apiClient.getMe();
+    await apiClient.renewToken();
   }
 }
 </script>

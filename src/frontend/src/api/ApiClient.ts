@@ -4,6 +4,7 @@ import { IGetMe } from '../models/responses/IGetMe';
 import router from '../router';
 
 class ApiClient {
+    public User: any = {};
     public IsLogged: boolean = false;
 
     // tslint:disable-next-line: variable-name
@@ -17,18 +18,23 @@ class ApiClient {
         (error) => this.authTokenExpiredInterceptor(error));
     }
 
-    public async updateToken(): Promise<void> {
-        this.fetchToken(localStorage.getItem('login'), localStorage.getItem('password'))
-            .then((x) => {
-                if (x.status === 200) {
-                    localStorage.setItem('token', x.data.access_token);
-                    this._axiosClient.defaults.headers.Authorization = x.data.access_token;
-                    this.IsLogged = true;
-                }
-            })
-            .catch((x) => {
-                // console.log(x);
-            });
+    public updateToken(token: string): void {
+        localStorage.setItem('token', token);
+        this._axiosClient.defaults.headers.Authorization = token;
+        this.IsLogged = true;
+    }
+
+    public async renewToken(): Promise<void> {
+        const token = localStorage.getItem('token');
+        this._axiosClient.defaults.headers.Authorization = token;
+        const resp = await this.getMe();
+        if (resp) {
+            this.IsLogged = true;
+            this.User = resp.data;
+            return;
+        }
+        this.IsLogged = false;
+        this.User = undefined;
     }
 
     public async fetchToken(login: string|null = '', password: string|null = ''):
@@ -47,13 +53,7 @@ class ApiClient {
     }
 
     public async getMe(): Promise<AxiosResponse<IGetMe>> {
-        const token = localStorage.getItem('token');
-        if (token) {
-            this._axiosClient.defaults.headers.Authorization = token;
-            return await this._axiosClient.get('Authorization/Me');
-        }
-
-        return new Promise<AxiosResponse<IGetMe>>((resolve, r) => resolve(null));
+        return await this._axiosClient.get('Authorization/Me');
     }
 
 
@@ -66,7 +66,7 @@ class ApiClient {
     }
 
     private ok(response: AxiosResponse<any>): AxiosResponse<any> {
-        this.IsLogged = true;
+        // this.IsLogged = true;
         return response;
     }
 
@@ -74,7 +74,7 @@ class ApiClient {
         if (error.response.status === 401) {
             this.IsLogged = false;
             localStorage.removeItem('token');
-            router.push('/login');
+            // router.push('/login');
         }
     }
 }

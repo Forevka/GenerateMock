@@ -1,6 +1,6 @@
 <template>
-  <div class="pt-16 home-view">
-    <div class="presentation-view h-screen">
+  <div class="flex flex-col pt-16 home-view h-screen">
+    <div class="presentation-view">
       <div class="px-4 py-10">
         <div class="relative w-full md:max-w-2xl md:mx-auto text-center">
           <h1
@@ -26,11 +26,10 @@
           >Get started!</button>
         </div>
       </div>
-      <div class="font-bold border-b border-gray-500 text-4xl">
-        <span>FAQ</span>
-      </div>
-      <home-faq/>
     </div>
+    <home-faq/>
+    <home-stat/>
+    <home-footer/>
   </div>
 </template>
 
@@ -38,13 +37,18 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import BrowserPresentation from '@/components/BrowserPresentation.vue';
 import HomeFaq from '@/components/HomeFAQ.vue';
+import HomeStat from '@/components/HomeStatistic.vue'
+import HomeFooter from '@/components/HomeFooter.vue';
 import Arrow from '@/components/Arrow.vue';
+import apiClient from '../api/ApiClient';
 
 @Component({
   components: {
     BrowserPresentation,
     Arrow,
     HomeFaq,
+    HomeStat,
+    HomeFooter
   },
 })
 export default class Home extends Vue {
@@ -63,21 +67,19 @@ export default class Home extends Vue {
   "id": 1,
   "title": "hello"
 }`;
+
+  private async created() {
+    // await apiClient.getMe();
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-.h-screen {
-  height: calc(100vh - 4rem);
-}
-
-.h-half-screen {
-  height: calc(60vh - 4rem);
-}
 
 .get-started-button {
   button {
     padding: 0.3rem;
   }
 }
+
 </style>
