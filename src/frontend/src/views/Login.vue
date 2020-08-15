@@ -1,55 +1,80 @@
 <template>
-<div class="pt-16 font-family-karla h-screen">
-    <div class="bg-gray-300 w-full flex flex-wrap">
-        <!-- Login Section -->
-        <div class="w-full md:w-1/2 flex flex-col">
-            <div class="flex justify-center md:justify-start pt-12 md:pl-12 md:-mb-24">
-                <a href="#" class="bg-black text-white font-bold text-xl p-4">Logo</a>
-            </div>
-            <div class="flex flex-col justify-start md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
-                <p class="mt-6 text-center text-3xl text-gray-900">Welcome.</p>
-                <div v-if="isError" class="bg-red-100 border-t-4 border-red-500 rounded-b text-red-900 px-4 py-3 shadow-md" role="alert">
-                    <div class="flex justify-center">
-                        <div>
-                            <p class="font-bold text-center">{{errorBadgeText}}</p>
-                            <p class="text-sm">Make sure your password and login are correct.</p>
-                        </div>
+<!-- Container -->
+<div class="w-screen pt-16 bg-gray-300 h-screen">
+    <div class="w-screen flex justify-center px-6">
+        <!-- Row -->
+        <div class="w-full xl:w-3/4 lg:w-11/12 flex">
+            <!-- Col -->
+            <div
+                class="w-full h-auto bg-gray-400 hidden lg:block lg:w-1/2 bg-cover rounded-l-lg"
+                style="background-image: url('https://source.unsplash.com/K4mSJ7kc0As/600x800')"
+            ></div>
+            <!-- Col -->
+            <div class="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
+                <h3 class="pt-4 text-2xl text-center">Welcome Back!</h3>
+                <form class="px-8 pt-6 pb-8 mb-4 bg-white rounded">
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-bold text-gray-700" for="username">
+                            Username
+                        </label>
+                        <input
+                            class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                            id="username"
+                            type="text"
+                            placeholder="Username"
+                        />
                     </div>
-                </div>
-                <form class="flex flex-col pt-3 md:pt-8" onsubmit="event.preventDefault();">
-                    <div class="flex flex-col pt-4">
-                        <label for="email" class="text-lg">Login</label>
-                        <input autocomplete="username" v-model="userLogin" id="login" placeholder="your@login" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-bold text-gray-700" for="password">
+                            Password
+                        </label>
+                        <input
+                            class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border border-red-500 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                            id="password"
+                            type="password"
+                            placeholder="******************"
+                        />
+                        <p class="text-xs italic text-red-500">Please choose a password.</p>
                     </div>
-    
-                    <div class="flex flex-col pt-4">
-                        <label for="password" class="text-lg">Password</label>
-                        <input autocomplete="current-password" v-model="userPassword" type="password" id="password" placeholder="Password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                    <div class="mb-4">
+                        <input class="mr-2 leading-tight" type="checkbox" id="checkbox_id" />
+                        <label class="text-sm" for="checkbox_id">
+                            Remember Me
+                        </label>
                     </div>
-    
-                    <button 
-                        v-on:click="login"
-                        class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out p-2 mt-8"
-                    >Log In</button>
+                    <div class="mb-6 text-center">
+                        <button
+                            class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                            type="button"
+                        >
+                            Sign In
+                        </button>
+                    </div>
+                    <hr class="mb-6 border-t" />
+                    <div class="text-center">
+                        <a
+                            class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+                            href="./register.html"
+                        >
+                            Create an Account!
+                        </a>
+                    </div>
+                    <div class="text-center">
+                        <a
+                            class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+                            href="./forgot-password.html"
+                        >
+                            Forgot Password?
+                        </a>
+                    </div>
                 </form>
-                <div class="text-center pt-12 pb-12">
-                    <p>Don't have an account? <router-link to="/register" class="underline font-semibold">Register here.</router-link></p>
-                </div>
             </div>
-        </div>
-        <!-- Image Section -->
-        <div class="w-1/2 shadow-2xl">
-            <img class="object-cover w-full h-screen hidden md:block" src="https://images.unsplash.com/photo-1538291323976-37dcaafccb12?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&q=80">
         </div>
     </div>
-
 </div>
 </template>
 
 <style lang="scss" scoped>
-.h-screen {
-    height: calc(100vh - 4rem);
-}
 </style>
 
 <script lang="ts">
