@@ -85,6 +85,7 @@ namespace GenerateMock.Bll.Services
                 RepositoryId = repoId,
                 DatabaseVersion = dbFileVersion?.Count + 1 ?? 1,
                 DatabaseLabel = dbLabel,
+                DatabaseBranch = branch,
             };
 
             await _publicContext.RepositoryDatabase.AddAsync(repoDb);
