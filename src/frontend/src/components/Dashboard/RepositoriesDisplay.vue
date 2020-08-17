@@ -28,7 +28,10 @@
                                     128 57.2 128 128 0 70.7-57.2 128-128 128z"></path>
                             </svg>
                         </span>
-                        <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="BooksApi" aria-label="repo-name">
+                        <input 
+                            class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" 
+                            type="text" placeholder="BooksApi" aria-label="repo-name"
+                            v-model="search">
                         <button class="flex-shrink-0 bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-sm border-4 text-white py-1 px-2 rounded" type="button">
                             Search
                         </button>
@@ -97,7 +100,7 @@
             ease-in-out"></div>
         <div class="flex flex-col mt-2">
             <repository-card 
-                v-for="repo in repositories" 
+                v-for="repo in filteredRepositories" 
                 :key="repo.repositoryId" 
                 :repo="repo"
                 :ownerName="myName()"/>
@@ -120,7 +123,9 @@ import { IRepository, IRepositoryDatabase } from 'models/responses/IRepository';
 export default class RepositoriesDisplay extends Vue {
     @Prop() private mainLabel!: string;
 
-    private repositories: any[] = [
+    private search: string = "";
+
+    private repositories: IRepository[] = [
         {
             "repositoryId": "a935176e-460e-41a0-a268-a37439602ff1",
             "repositoryName": "demo",
@@ -130,7 +135,7 @@ export default class RepositoriesDisplay extends Vue {
                     "repositoryId": "a935176e-460e-41a0-a268-a37439602ff1",
                     "databaseId": "3480ef2d-8052-4154-bdc9-0b5dc28c8147",
                     "databaseFilePath": "db.json",
-                    "databaseLoadTime": "2020-08-10T20:04:39.510178",
+                    "databaseLoadTime": new Date("2020-08-10T20:04:39.510178"),
                     "databaseVersion": 1,
                     "databaseApiUrl": "forevka/demo/v1/db"
                 }
@@ -145,7 +150,7 @@ export default class RepositoriesDisplay extends Vue {
                     "repositoryId": "a935176e-460e-41a0-a268-a37439602ff1",
                     "databaseId": "3480ef2d-8052-4154-bdc9-0b5dc28c8147",
                     "databaseFilePath": "db.json",
-                    "databaseLoadTime": "2020-07-10T20:04:39.510178",
+                    "databaseLoadTime": new Date("2020-07-10T20:04:39.510178"),
                     "databaseVersion": 1,
                     "databaseApiUrl": "forevka/demo/v1/db"
                 },
@@ -153,13 +158,19 @@ export default class RepositoriesDisplay extends Vue {
                     "repositoryId": "a935176e-460e-41a0-a268-a37439602ff1",
                     "databaseId": "3480ef2d-8052-4154-bdc9-0b5dc28c8147",
                     "databaseFilePath": "db.json",
-                    "databaseLoadTime": "2020-07-10T20:04:39.510178",
+                    "databaseLoadTime": new Date("2020-07-10T20:04:39.510178"),
                     "databaseVersion": 2,
                     "databaseApiUrl": "forevka/demo/v2/db"
                 }
             ]
         },
     ]
+
+    private get filteredRepositories(): IRepository[] {
+        return this.repositories.filter(x => {
+            return x.repositoryName.toLowerCase().includes(this.search.toLowerCase());
+        })
+    }
 
     private created(): void {
         this.prepareData()
