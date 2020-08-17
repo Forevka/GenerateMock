@@ -52,13 +52,13 @@
                 <span>Export</span>
             </button>-->
 
-            <div class="flex items-center select-none">
+            <!--<div class="flex items-center select-none">
                 <span>Filter</span>
                 <button
                     class="ml-3 bg-gray-400 dark:bg-gray-600
                     dark:text-gray-400 rounded-full p-2 focus:outline-none
-                    hover:text-pink-500 hover:bg-pink-300 transition
-                    duration-500 ease-in-out">
+                    hover:text-green-500 hover:bg-green-300 transition
+                    duration-200 ease-in-out">
                     <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24">
                         <path
                             d="M14 12v7.88c.04.3-.06.62-.29.83a.996.996 0
@@ -72,8 +72,8 @@
                     disabled
                     class="ml-2 bg-gray-400 dark:bg-gray-600
                     dark:text-gray-400 rounded-full p-2 focus:outline-none
-                    hover:text-pink-500 hover:bg-pink-300 transition
-                    duration-500 ease-in-out">
+                    hover:text-green-500 hover:bg-green-300 transition
+                    duration-200 ease-in-out">
                     <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24">
                         <path
                             d="M18 21l-4-4h3V7h-3l4-4 4 4h-3v10h3M2
@@ -83,8 +83,8 @@
                 <button
                     class="ml-2 bg-gray-400 dark:bg-gray-600
                     dark:text-gray-400 rounded-full p-2 focus:outline-none
-                    hover:text-pink-500 hover:bg-pink-300 transition
-                    duration-500 ease-in-out">
+                    hover:text-green-500 hover:bg-green-300 transition
+                    duration-200 ease-in-out">
                     <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24">
                         <path
                             d="M12 4a4 4 0 014 4 4 4 0 01-4 4 4 4 0 01-4-4 4
@@ -92,7 +92,7 @@
                             3.58-4 8-4z"></path>
                     </svg>
                 </button>
-            </div>
+            </div>-->
         </div>
 
         <div

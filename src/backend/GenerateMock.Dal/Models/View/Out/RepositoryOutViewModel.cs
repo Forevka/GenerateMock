@@ -7,6 +7,7 @@ namespace GenerateMock.Dal.Models.View.Out
     {
         public Guid RepositoryId { get; set; }
         public string RepositoryName { get; set; }
+        public string RepositoryLabel { get; set; }
         public Guid OwnerId { get; set; }
         public virtual List<RepositoryDatabaseOutViewModel> RepositoryDatabase { get; set; }
     }

@@ -30,11 +30,27 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: () => import(/* webpackChunkName: "Dashboard" */ '@/views/Dashboard.vue'),
+    children: [
+      {
+        path: '', // /dashboard
+        component: () => import(/* webpackChunkName: "Display" */ '@/views/Dashboard/RepositoriesDisplay.vue'),
+        props: {
+          mainLabel: 'My repositories',
+        },
+      },
+      {
+        path: 'add', // /dashboard
+        component: () => import(/* webpackChunkName: "AddNew" */ '@/views/Dashboard/RepositoryAddNew.vue'),
+        props: {
+          mainLabel: 'New repository',
+        },
+      },
+    ],
   },
   {
     path: '/explore',
     name: 'explore',
-    component: () => import(/* webpackChunkName: "Dashboard" */ '@/components/Dashboard/RepositoriesDisplay.vue'),
+    component: () => import(/* webpackChunkName: "Dashboard" */ '@/views/Dashboard/RepositoriesDisplay.vue'),
   },
 ];
 

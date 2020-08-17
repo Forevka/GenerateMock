@@ -32,9 +32,9 @@ namespace GenerateMock.WebApi.Controllers
         /// <param name="dbFilePath"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<RepositoryDatabaseOutViewModel> LoadDatabase(Guid repoId, string dbFilePath)
+        public async Task<RepositoryDatabaseOutViewModel> LoadDatabase(Guid repoId, string dbFilePath, string dbLabel = null)
         {
-            var repoDb = await _exploreHubService.LoadRepositoryDatabase(repoId, dbFilePath);
+            var repoDb = await _exploreHubService.LoadRepositoryDatabase(repoId, dbFilePath, dbLabel);
             return _mapper.Map<RepositoryDatabaseOutViewModel>(repoDb);
         }
 

@@ -29,12 +29,13 @@ namespace GenerateMock.WebApi.Controllers
         /// </summary>
         /// <param name="userName"></param>
         /// <param name="repoName"></param>
+        /// <param name="label"></param>
         /// <returns></returns>
         [Authorize(Roles = "Member")]
         [HttpPost]
-        public async Task<Dal.Models.DB.RepositoryDb> RegisterRepository(string userName, string repoName)
+        public async Task<Dal.Models.DB.RepositoryDb> RegisterRepository(string userName, string repoName, string label = null)
         {
-            return await _exploreHubService.RegisterRepository(userName, repoName, CurrentUser());
+            return await _exploreHubService.RegisterRepository(userName, repoName, label, CurrentUser());
         }
 
         /// <summary>

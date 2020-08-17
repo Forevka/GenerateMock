@@ -32,17 +32,17 @@ namespace GenerateMock.Bll.Services
                 .ToListAsync();
         }
 
-        public async Task<RepositoryDb> RegisterRepository(string userName, string repositoryName, Guid userId)
+        public async Task<RepositoryDb> RegisterRepository(string userName, string repositoryName, string repositoryLabel, Guid userId)
         {
 
             //var user = await _userService.AddUserIfNotExist(userName);
 
-            var repo = await CreateRepositoryIfNotExist(repositoryName, userName, userId);
+            var repo = await CreateRepositoryIfNotExist(repositoryName, userName, repositoryLabel, userId);
 
             return repo;
         }
 
-        public async Task<RepositoryDatabaseDb> LoadRepositoryDatabase(Guid repoId, string dbFilePath)
+        public async Task<RepositoryDatabaseDb> LoadRepositoryDatabase(Guid repoId, string dbFilePath, string dbLabel = null)
         {
             var repo = await GetRepo(repoId);
 
@@ -83,7 +83,8 @@ namespace GenerateMock.Bll.Services
                 DatabaseSchema = schema,
                 DatabaseLoadTime = DateTime.UtcNow,
                 RepositoryId = repoId,
-                DatabaseVersion = dbFileVersion?.Count + 1 ?? 1
+                DatabaseVersion = dbFileVersion?.Count + 1 ?? 1,
+                DatabaseLabel = dbLabel,
             };
 
             await _publicContext.RepositoryDatabase.AddAsync(repoDb);
@@ -152,7 +153,7 @@ namespace GenerateMock.Bll.Services
             return repoDb?.RepositoryDatabase.FirstOrDefault(x => x.DatabaseVersion == parsedVersion && x.DatabaseFilePath == db + ".json");
         }
 
-        public async Task<RepositoryDb> CreateRepositoryIfNotExist(string repoName, string userName, Guid userId)
+        public async Task<RepositoryDb> CreateRepositoryIfNotExist(string repoName, string userName, string repositoryLabel, Guid userId)
         {
             var repo = await _publicContext.Repository.FirstOrDefaultAsync(x => x.RepositoryName == repoName && x.OwnerId == userId);
 
@@ -163,6 +164,7 @@ namespace GenerateMock.Bll.Services
                 RepositoryId = Guid.NewGuid(),
                 RepositoryName = repoName,
                 RepositoryUsername = userName,
+                RepositoryLabel = repositoryLabel,
                 OwnerId = userId,
             };
 

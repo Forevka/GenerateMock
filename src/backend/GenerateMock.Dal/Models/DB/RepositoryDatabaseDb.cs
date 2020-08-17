@@ -10,6 +10,7 @@ namespace GenerateMock.Dal.Models.DB
         public string DatabaseFilePath { get; set; }
         public string DatabaseLoaded { get; set; }
         public string DatabaseSchema { get; set; }
+        public string DatabaseLabel { get; set; }
         public DateTime DatabaseLoadTime { get; set; }
         public int DatabaseVersion { get; set; }
 

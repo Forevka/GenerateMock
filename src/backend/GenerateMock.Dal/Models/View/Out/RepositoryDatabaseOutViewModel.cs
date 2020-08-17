@@ -9,6 +9,7 @@ namespace GenerateMock.Dal.Models.View.Out
         public string DatabaseFilePath { get; set; }
         public DateTime DatabaseLoadTime { get; set; }
         public int DatabaseVersion { get; set; }
+        public string DatabaseLabel { get; set; }
 
         public string DatabaseApiUrl { get; set; }
     }
