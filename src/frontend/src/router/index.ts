@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '@/views/Home.vue';
-import apiClient from '@/api/ApiClient';
 
 Vue.use(VueRouter);
 
@@ -39,7 +38,7 @@ const routes = [
         },
       },
       {
-        path: 'add', // /dashboard
+        path: 'add', // /dashboard/add
         component: () => import(/* webpackChunkName: "AddNew" */ '@/views/Dashboard/RepositoryAddNew.vue'),
         props: {
           mainLabel: 'New repository',

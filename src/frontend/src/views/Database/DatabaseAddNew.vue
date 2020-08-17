@@ -1,64 +1,47 @@
 <template>
-<div
-    class="text-left flex-1 bg-gray-200 dark:bg-gray-900 overflow-y-auto transition
-    duration-500 ease-in-out">
-    <div
-        class="px-24 py-12 text-gray-700 dark:text-gray-500 transition
-        duration-500 ease-in-out">
-        <h2 class="text-4xl font-medium capitalize">{{mainLabel}}</h2>
-        <div class="mt-1 mb-4 flex items-left justify-between flex-col">
+    <form class="mt-1 mb-4 flex items-left justify-between flex-col">
+        <fieldset :disabled="locked">
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-                    Username
+                    Database file path
                 </label>
                 <input 
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                    id="username" type="text" placeholder="forevka">
+                    id="label" type="text" 
+                    placeholder="Db with kitties">
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-                    Repository name
+                    Database branch
                 </label>
                 <input 
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                    id="reponame" type="text" placeholder="FilmsDB">
+                    id="label" type="text" 
+                    placeholder="master">
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-                    Repository label 
+                    Database label
                 </label>
                 <input 
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                    id="label" type="text" placeholder="My first mocked api">
+                    id="label" type="text" 
+                    placeholder="Db with kitties">
             </div>
-        </div>
-        <div class="mt-1 mb-4 flex ">
-            <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-8 border border-green-700 rounded">
-                Add!
-            </button>
-        </div>
-        <div
-            class="border dark:border-gray-700 transition duration-500
-            ease-in-out"></div>
-        <database-add-new class="pt-2" :locked="true"/>
-    </div>
-
-</div>
+        </fieldset>
+    </form>
 </template>
 
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { IRepository, IRepositoryDatabase } from '@/models/responses/IRepository';
-import DatabaseAddNew from '@/views/Database/DatabaseAddNew.vue';
 
 @Component({
-    components: {
-        DatabaseAddNew,
-    },
+    components: {},
 })
 export default class RepositoryAddNew extends Vue {
-    @Prop() private mainLabel!: string;
-
+    @Prop() private repo!: IRepository;
+    @Prop() private locked!: boolean;
 }
 </script>

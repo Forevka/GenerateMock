@@ -70,8 +70,8 @@ class ApiClient {
         return response;
     }
 
-    private authTokenExpiredInterceptor(error: AxiosError<any>): void {
-        if (error.response.status === 401) {
+    private authTokenExpiredInterceptor(error: AxiosError): void {
+        if (error.response && error.response.status === 401) {
             this.IsLogged = false;
             localStorage.removeItem('token');
             // router.push('/login');

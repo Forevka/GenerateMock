@@ -73,10 +73,8 @@ export default class Login extends Vue {
     private async login() {
         await apiClient.fetchToken(this.userLogin, this.userPassword).then((x: any) => {
             localStorage.setItem('login', x.data.login);
-
             apiClient.updateToken(x.data.access_token);
             apiClient.IsLogged = true;
-            
             this.$router.push('/dashboard');
         }).catch((err: any) => {
             this.isError = true;

@@ -2,14 +2,13 @@
 using GenerateMock.Dal.Models.DB;
 using GenerateMock.Utilities.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Octokit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace GenerateMock.Bll.Services
 {
@@ -34,7 +33,6 @@ namespace GenerateMock.Bll.Services
 
         public async Task<RepositoryDb> RegisterRepository(string userName, string repositoryName, string repositoryLabel, Guid userId)
         {
-
             //var user = await _userService.AddUserIfNotExist(userName);
 
             var repo = await CreateRepositoryIfNotExist(repositoryName, userName, repositoryLabel, userId);

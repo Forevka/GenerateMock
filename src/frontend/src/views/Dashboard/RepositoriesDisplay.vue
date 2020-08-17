@@ -113,7 +113,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import RepositoryCard from '@/components/Dashboard/RepositoryCard.vue';
-import { IRepository, IRepositoryDatabase } from 'models/responses/IRepository';
+import { IRepository, IRepositoryDatabase } from '@/models/responses/IRepository';
 
 @Component({
     components: {
@@ -123,67 +123,66 @@ import { IRepository, IRepositoryDatabase } from 'models/responses/IRepository';
 export default class RepositoriesDisplay extends Vue {
     @Prop() private mainLabel!: string;
 
-    private search: string = "";
+    private search: string = '';
 
     private repositories: IRepository[] = [
         {
-            "repositoryId": "a935176e-460e-41a0-a268-a37439602ff1",
-            "repositoryName": "demo",
-            "ownerId": "ae8d52a3-3ec2-48c6-9268-9f63dda271ec",
-            "repositoryDatabase": [
+            'repositoryId': 'a935176e-460e-41a0-a268-a37439602ff1',
+            'repositoryName': 'demo',
+            'ownerId': 'ae8d52a3-3ec2-48c6-9268-9f63dda271ec',
+            'repositoryDatabase': [
                 {
-                    "repositoryId": "a935176e-460e-41a0-a268-a37439602ff1",
-                    "databaseId": "3480ef2d-8052-4154-bdc9-0b5dc28c8147",
-                    "databaseFilePath": "db.json",
-                    "databaseLoadTime": new Date("2020-08-10T20:04:39.510178"),
-                    "databaseVersion": 1,
-                    "databaseApiUrl": "forevka/demo/v1/db"
+                    'repositoryId': 'a935176e-460e-41a0-a268-a37439602ff1',
+                    'databaseId': '3480ef2d-8052-4154-bdc9-0b5dc28c8147',
+                    'databaseFilePath': 'db.json',
+                    'databaseLoadTime': new Date('2020-08-10T20:04:39.510178'),
+                    'databaseVersion': 1,
+                    'databaseApiUrl': 'forevka/demo/v1/db'
                 }
             ]
         },
         {
-            "repositoryId": "a935176e-460e-41a0-a268-a37439602ff2",
-            "repositoryName": "demoTest",
-            "ownerId": "ae8d52a3-3ec2-48c6-9268-9f63dda271ec",
-            "repositoryDatabase": [
+            'repositoryId': 'a935176e-460e-41a0-a268-a37439602ff2',
+            'repositoryName': 'demoTest',
+            'ownerId': 'ae8d52a3-3ec2-48c6-9268-9f63dda271ec',
+            'repositoryDatabase': [
                 {
-                    "repositoryId": "a935176e-460e-41a0-a268-a37439602ff1",
-                    "databaseId": "3480ef2d-8052-4154-bdc9-0b5dc28c8147",
-                    "databaseFilePath": "db.json",
-                    "databaseLoadTime": new Date("2020-07-10T20:04:39.510178"),
-                    "databaseVersion": 1,
-                    "databaseApiUrl": "forevka/demo/v1/db"
+                    'repositoryId': 'a935176e-460e-41a0-a268-a37439602ff1',
+                    'databaseId': '3480ef2d-8052-4154-bdc9-0b5dc28c8147',
+                    'databaseFilePath': 'db.json',
+                    'databaseLoadTime': new Date('2020-07-10T20:04:39.510178'),
+                    'databaseVersion': 1,
+                    'databaseApiUrl': 'forevka/demo/v1/db'
                 },
                 {
-                    "repositoryId": "a935176e-460e-41a0-a268-a37439602ff1",
-                    "databaseId": "3480ef2d-8052-4154-bdc9-0b5dc28c8147",
-                    "databaseFilePath": "db.json",
-                    "databaseLoadTime": new Date("2020-07-10T20:04:39.510178"),
-                    "databaseVersion": 2,
-                    "databaseApiUrl": "forevka/demo/v2/db"
+                    'repositoryId': 'a935176e-460e-41a0-a268-a37439602ff1',
+                    'databaseId': '3480ef2d-8052-4154-bdc9-0b5dc28c8147',
+                    'databaseFilePath': 'db.json',
+                    'databaseLoadTime': new Date('2020-07-10T20:04:39.510178'),
+                    'databaseVersion': 2,
+                    'databaseApiUrl': 'forevka/demo/v2/db'
                 }
             ]
         },
     ]
 
     private get filteredRepositories(): IRepository[] {
-        return this.repositories.filter(x => {
-            return x.repositoryName.toLowerCase().includes(this.search.toLowerCase());
-        })
+        return this.repositories.filter((x: IRepository) =>
+            x.repositoryName.toLowerCase().includes(this.search.toLowerCase()));
     }
 
     private created(): void {
-        this.prepareData()
+        this.prepareData();
     }
 
     private prepareData(): void {
-        for(let i=0;i<this.repositories.length;i++) {
+        for (let i = 0; i < this.repositories.length; i++) {
             this.sortDb(this.repositories[i]);
-        } 
+        }
     }
 
     private myName(): string|null {
-        return localStorage.getItem('login')
+        return localStorage.getItem('login');
     }
 
     private sortDb(repo: IRepository): void {
@@ -197,7 +196,7 @@ export default class RepositoriesDisplay extends Vue {
             }
 
             return 0;
-        })
+        });
 
         repo.repositoryDatabase = sortedDb;
     }

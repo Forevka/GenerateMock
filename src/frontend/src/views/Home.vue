@@ -37,7 +37,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import BrowserPresentation from '@/components/BrowserPresentation.vue';
 import HomeFaq from '@/components/HomeFAQ.vue';
-import HomeStat from '@/components/HomeStatistic.vue'
+import HomeStat from '@/components/HomeStatistic.vue';
 import HomeFooter from '@/components/HomeFooter.vue';
 import Arrow from '@/components/Arrow.vue';
 import apiClient from '../api/ApiClient';
@@ -48,7 +48,7 @@ import apiClient from '../api/ApiClient';
     Arrow,
     HomeFaq,
     HomeStat,
-    HomeFooter
+    HomeFooter,
   },
 })
 export default class Home extends Vue {

@@ -105,7 +105,7 @@ export default class Register extends Vue {
 
         if (this.userPassword !== this.userPasswordConfirm) {
             this.isWarning = true;
-            this.warningBadgeText = 'Passwords must be the same'
+            this.warningBadgeText = 'Passwords must be the same';
             this.isPasswordNotSame = true;
             return;
         }
@@ -114,7 +114,6 @@ export default class Register extends Vue {
 
         await apiClient.registerUser(this.userLogin, this.userPassword).then((x: any) => {
             localStorage.setItem('login', x.data.login);
-            
             apiClient.updateToken(x.data.access_token);
             apiClient.IsLogged = true;
 

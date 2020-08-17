@@ -194,7 +194,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { IRepository, IRepositoryDatabase } from 'models/responses/IRepository';
+import { IRepository, IRepositoryDatabase } from '@/models/responses/IRepository';
 
 @Component({
     components: {}
