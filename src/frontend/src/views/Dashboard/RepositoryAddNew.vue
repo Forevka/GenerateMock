@@ -7,6 +7,7 @@
         duration-500 ease-in-out">
         <h2 class="text-4xl font-medium capitalize">{{mainLabel}}</h2>
     </div>
+    
 </div>
 </template>
 

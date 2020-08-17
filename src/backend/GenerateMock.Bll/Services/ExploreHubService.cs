@@ -42,7 +42,7 @@ namespace GenerateMock.Bll.Services
             return repo;
         }
 
-        public async Task<RepositoryDatabaseDb> LoadRepositoryDatabase(Guid repoId, string dbFilePath, string dbLabel = null)
+        public async Task<RepositoryDatabaseDb> LoadRepositoryDatabase(Guid repoId, string dbFilePath, string branch, string dbLabel = null)
         {
             var repo = await GetRepo(repoId);
 
@@ -54,9 +54,9 @@ namespace GenerateMock.Bll.Services
 
             try
             {
-                var repoDbContent = await _gitHubClient.Repository.Content.GetRawContent(repo.RepositoryUsername, repo.RepositoryName,
-                    dbFilePath);
-                repoDbJson = Encoding.UTF8.GetString(repoDbContent);
+                var repoDbContent = (await _gitHubClient.Repository.Content.GetAllContentsByRef(repo.RepositoryUsername, repo.RepositoryName,
+                    dbFilePath, branch));
+                repoDbJson = repoDbContent.FirstOrDefault()?.Content;
 
                 if (!IsValidJson(repoDbJson))
                     throw ExceptionFactory.SoftException(ExceptionEnum.FileContentNotValid, "Content of provided file not valid.");
@@ -66,7 +66,7 @@ namespace GenerateMock.Bll.Services
             catch (Octokit.NotFoundException)
             {
                 throw ExceptionFactory.SoftException(ExceptionEnum.FileAtGivenPathDoesntExist,
-                    $"File {dbFilePath} doesn't exist in repo {repo.RepositoryName}");
+                    $"File {dbFilePath} doesn't exist in repo {repo.RepositoryName} branch {branch}");
             }
 
             var dbFileVersion = repo.RepositoryDatabase.GroupBy(x => x.DatabaseFilePath).Select(x => new
