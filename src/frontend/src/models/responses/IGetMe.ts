@@ -1,16 +1,16 @@
 export interface IGetMe {
-    userId:       string;
-    createdDate:  Date;
+    userId: string;
+    createdDate: Date;
     userSecurity: UserSecurity;
 }
 
 export interface UserSecurity {
-    login:  string;
+    login: string;
     roleId: string;
-    role:   Role;
+    role: Role;
 }
 
 export interface Role {
-    roleId:   string;
+    roleId: string;
     roleName: string;
 }

@@ -13,11 +13,15 @@ deckDeckGoElement();*/
 import 'prismjs';
 import 'prismjs/themes/prism-tomorrow.css';
 
+import dateTimeFilter from './utilities/filters/DateTime';
+
 const theme = {};
 
 Vue.use(VueTailwind, theme);
 
 Vue.config.productionTip = false;
+
+dateTimeFilter(Vue);
 
 new Vue({
   router,
