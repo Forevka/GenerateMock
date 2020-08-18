@@ -125,46 +125,7 @@ export default class RepositoriesDisplay extends Vue {
 
     private search: string = '';
 
-    private repositories: IRepository[] = [
-        {
-            'repositoryId': 'a935176e-460e-41a0-a268-a37439602ff1',
-            'repositoryName': 'demo',
-            'ownerId': 'ae8d52a3-3ec2-48c6-9268-9f63dda271ec',
-            'repositoryDatabase': [
-                {
-                    'repositoryId': 'a935176e-460e-41a0-a268-a37439602ff1',
-                    'databaseId': '3480ef2d-8052-4154-bdc9-0b5dc28c8147',
-                    'databaseFilePath': 'db.json',
-                    'databaseLoadTime': new Date('2020-08-10T20:04:39.510178'),
-                    'databaseVersion': 1,
-                    'databaseApiUrl': 'forevka/demo/v1/db'
-                }
-            ]
-        },
-        {
-            'repositoryId': 'a935176e-460e-41a0-a268-a37439602ff2',
-            'repositoryName': 'demoTest',
-            'ownerId': 'ae8d52a3-3ec2-48c6-9268-9f63dda271ec',
-            'repositoryDatabase': [
-                {
-                    'repositoryId': 'a935176e-460e-41a0-a268-a37439602ff1',
-                    'databaseId': '3480ef2d-8052-4154-bdc9-0b5dc28c8147',
-                    'databaseFilePath': 'db.json',
-                    'databaseLoadTime': new Date('2020-07-10T20:04:39.510178'),
-                    'databaseVersion': 1,
-                    'databaseApiUrl': 'forevka/demo/v1/db'
-                },
-                {
-                    'repositoryId': 'a935176e-460e-41a0-a268-a37439602ff1',
-                    'databaseId': '3480ef2d-8052-4154-bdc9-0b5dc28c8147',
-                    'databaseFilePath': 'db.json',
-                    'databaseLoadTime': new Date('2020-07-10T20:04:39.510178'),
-                    'databaseVersion': 2,
-                    'databaseApiUrl': 'forevka/demo/v2/db'
-                }
-            ]
-        },
-    ]
+    private repositories: IRepository[] = []
 
     private get filteredRepositories(): IRepository[] {
         return this.repositories.filter((x: IRepository) =>

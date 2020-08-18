@@ -24,7 +24,11 @@ namespace GenerateMock.Bll.Services
             _userService = userService;
             _gitHubClient = gitHubClient;
         }
-
+        public async Task<List<RepositoryDb>> GetUserRepositories(Guid userId)
+        {
+            return await _publicContext.Repository.Include(x => x.RepositoryDatabase).Where(x => x.OwnerId == userId)
+                .ToListAsync();
+        }
         public async Task<List<RepositoryDb>> GetUserRepositories(string username)
         {
             return await _publicContext.Repository.Include(x => x.RepositoryDatabase).Where(x => x.RepositoryUsername == username)

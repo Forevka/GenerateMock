@@ -49,5 +49,17 @@ namespace GenerateMock.WebApi.Controllers
             var res = await _exploreHubService.GetUserRepositories(username);
             return _mapper.Map<List<RepositoryOutViewModel>>(res);
         }
+
+        /// <summary>
+        /// Get all repositories for logged in user
+        /// </summary>
+        /// <returns></returns>
+        [Authorize(Roles = "Member")]
+        [HttpGet("My")]
+        public async Task<List<RepositoryOutViewModel>> GetUserRepository()
+        {
+            var res = await _exploreHubService.GetUserRepositories(CurrentUser());
+            return _mapper.Map<List<RepositoryOutViewModel>>(res);
+        }
     }
 }
